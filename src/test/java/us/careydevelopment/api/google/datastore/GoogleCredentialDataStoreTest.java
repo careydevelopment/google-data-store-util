@@ -19,8 +19,6 @@ public class GoogleCredentialDataStoreTest {
     private static final StoredCredentialPersister PERSISTER = StoredCredentialPersisterHarness.getGoodPersister();
     private static final StoredCredentialRetriever RETRIEVER = StoredCredentialRetrieverHarness.getGoodRetriever();
 
-
-
     private DataStore<StoredCredential> dataStore;
 
     @AfterEach
