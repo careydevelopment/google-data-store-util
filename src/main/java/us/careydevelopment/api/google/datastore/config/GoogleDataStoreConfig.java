@@ -7,6 +7,11 @@ import us.careydevelopment.api.google.datastore.util.StoredCredentialPersister;
 import us.careydevelopment.api.google.datastore.util.StoredCredentialRetriever;
 import us.careydevelopment.api.google.datastore.exception.GoogleDataStoreConfigException;
 
+/**
+ * Handles configuration for the DataStore related utility classes.
+ *
+ * It's a singleton, but it must be instantiated by the Builder object below.
+ */
 public class GoogleDataStoreConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(GoogleDataStoreConfig.class);
@@ -44,6 +49,12 @@ public class GoogleDataStoreConfig {
     }
 
 
+    /**
+     * This Builder object is used to create an instance of GoogleDataStoreConfig.
+     *
+     * It includes setter methods that return the Builder instance so that developers
+     * can use method chaining.
+     */
     public static class Builder {
         private StoredCredentialPersister persister;
         private StoredCredentialRetriever retriever;

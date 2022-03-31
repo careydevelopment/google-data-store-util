@@ -7,7 +7,7 @@
     <name>Google Data Store Utilities</name>
     <description>Convenience classes that make it easy to work with Google API and DataStore</description>
     <url>https://github.com/careydevelopment/google-data-store-util</url>
-    <version>0.1.2-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>

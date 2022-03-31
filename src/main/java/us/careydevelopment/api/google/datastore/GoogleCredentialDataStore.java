@@ -16,6 +16,14 @@ import com.google.api.client.util.store.DataStoreFactory;
 
 import us.careydevelopment.api.google.datastore.config.GoogleDataStoreConfig;
 
+/**
+ * Handles storing and retrieving the StoredCredential from a persistent store.
+ *
+ * Note that the manner of storing and retrieving the StoredCredential object
+ * is delegated to StoredCredentialPersister and StoredCredentialRetriever.
+ *
+ * Both of those objects get retrieved from the GoogleDataStoreConfig instance.
+ */
 public class GoogleCredentialDataStore extends AbstractDataStore<StoredCredential> {
 
     private static final Logger LOG = LoggerFactory.getLogger(GoogleCredentialDataStore.class);
@@ -36,6 +44,15 @@ public class GoogleCredentialDataStore extends AbstractDataStore<StoredCredentia
         return null;
     }
 
+    /**
+     * Retrieves the StoredCredential based on its key.
+     *
+     * The key is typically the user ID.
+     *
+     * @param key
+     * @return StoredCredential object
+     * @throws IOException
+     */
     public StoredCredential get(String key) throws IOException {
         LOG.debug("In StoredCredentialDataStore getting key " + key);
 	    
@@ -54,7 +71,16 @@ public class GoogleCredentialDataStore extends AbstractDataStore<StoredCredentia
         return null;
     }
 
-	
+    /**
+     * Persists the given StoredCredential objet and associates it with the given key.
+     *
+     * THe key is typically the user ID.
+     *
+     * @param key
+     * @param value
+     * @return this DataStore instance
+     * @throws IOException
+     */
     public DataStore<StoredCredential> set(String key, StoredCredential value) throws IOException {		
         if (key != null) {
             LOG.debug("Persisting StoredCredential " + value + " for " + key);

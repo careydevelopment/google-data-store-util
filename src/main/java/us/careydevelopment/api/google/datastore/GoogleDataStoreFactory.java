@@ -10,6 +10,9 @@ import com.google.api.client.util.store.AbstractDataStoreFactory;
 import com.google.api.client.util.store.DataStore;
 import us.careydevelopment.api.google.datastore.exception.GoogleDataStoreException;
 
+/**
+ * The factory that this framework will use to retrieve a DataStore instance.
+ */
 public class GoogleDataStoreFactory extends AbstractDataStoreFactory {
     
     private static final Logger LOG = LoggerFactory.getLogger(GoogleDataStoreFactory.class);
@@ -28,6 +31,16 @@ public class GoogleDataStoreFactory extends AbstractDataStoreFactory {
         return INSTANCE;
     }
 
+    /**
+     * This method creates the DataStore object if it doesn't exist already.
+     *
+     * It's used by the parent class.
+     *
+     * @param id
+     * @param <V>
+     * @return DataStore object.
+     * @throws IOException
+     */
     @SuppressWarnings("unchecked")
     @Override
     protected <V extends Serializable> DataStore<V> createDataStore(String id) throws IOException {
