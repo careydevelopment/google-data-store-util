@@ -19,24 +19,14 @@ public class GoogleCredentialDataStoreTest {
     private static final StoredCredentialPersister PERSISTER = StoredCredentialPersisterHarness.getGoodPersister();
     private static final StoredCredentialRetriever RETRIEVER = StoredCredentialRetrieverHarness.getGoodRetriever();
 
-    private DataStore<StoredCredential> dataStore;
-
-    @AfterEach
-    void cleanup() {
-        GoogleDataStoreConfig.shutdown();
-    }
-
-    @BeforeEach
-    void init() throws Exception {
-        GoogleDataStoreConfigHarness.setUpConfig();
-
-        dataStore = GoogleDataStoreFactory
-                    .getInstance()
-                    .getDataStore(GoogleDataStoreFactory.CREDENTIAL_STORE_ID);
-    }
-
     @Test
     public void testGet() throws Exception {
+        GoogleDataStoreConfigHarness.setUpConfig();
+
+        final DataStore<StoredCredential> dataStore = GoogleDataStoreFactory
+                .getInstance()
+                .getDataStore(GoogleDataStoreFactory.CREDENTIAL_STORE_ID);
+
         final StoredCredential credential = dataStore.get(StoredCredentialRetrieverHarness.ID);
 
         Assertions.assertNotNull(credential);
@@ -46,8 +36,13 @@ public class GoogleCredentialDataStoreTest {
 
     @Test
     public void testSet() throws Exception {
+        GoogleDataStoreConfigHarness.setUpConfig();
+
+        final DataStore<StoredCredential> dataStore = GoogleDataStoreFactory
+                .getInstance()
+                .getDataStore(GoogleDataStoreFactory.CREDENTIAL_STORE_ID);
+
         final DataStore<StoredCredential> ds = dataStore.set(StoredCredentialRetrieverHarness.ID, StoredCredentialHarness.getGoodStoredCredential());
         Assertions.assertNotNull(ds);
     }
-
 }

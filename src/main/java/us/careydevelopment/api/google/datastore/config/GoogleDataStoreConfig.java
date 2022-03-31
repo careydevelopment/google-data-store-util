@@ -1,10 +1,15 @@
 package us.careydevelopment.api.google.datastore.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import us.careydevelopment.api.google.datastore.GoogleDataStoreFactory;
 import us.careydevelopment.api.google.datastore.util.StoredCredentialPersister;
 import us.careydevelopment.api.google.datastore.util.StoredCredentialRetriever;
 import us.careydevelopment.api.google.datastore.exception.GoogleDataStoreConfigException;
 
 public class GoogleDataStoreConfig {
+
+    private static final Logger LOG = LoggerFactory.getLogger(GoogleDataStoreConfig.class);
 
     private StoredCredentialPersister persister;
     private StoredCredentialRetriever retriever;
@@ -61,7 +66,8 @@ public class GoogleDataStoreConfig {
             if (INSTANCE == null) {
                 return new GoogleDataStoreConfig(this);                
             } else {
-                throw new GoogleDataStoreConfigException("GoogleDataStoreConfig already created!");
+                LOG.warn("GoogleDataStoreConfig already created - returning existing instance");
+                return INSTANCE;
             }
         }
     }

@@ -12,13 +12,10 @@ import us.careydevelopment.api.google.datastore.util.StoredCredentialRetriever;
 
 public class GoogleDataStoreConfigTest {
 
-    @AfterEach
-    void cleanup() {
-        GoogleDataStoreConfig.shutdown();
-    }
-
     @Test
     public void testStandardBuild() throws Exception {
+        GoogleDataStoreConfig.shutdown();
+
         final StoredCredentialPersister persister = StoredCredentialPersisterHarness.getGoodPersister();
         final StoredCredentialRetriever retriever = StoredCredentialRetrieverHarness.getGoodRetriever();
 
@@ -41,23 +38,26 @@ public class GoogleDataStoreConfigTest {
 
     @Test
     public void testRepeatedBuild() {
+        GoogleDataStoreConfig.shutdown();
+
         GoogleDataStoreConfig config = GoogleDataStoreConfig.Builder
                 .instance()
                 .setStoredCredentialPersister((id, storedCredential) -> true)
                 .setStoredCredentialRetriever((id) -> null)
                 .build();
 
-        GoogleDataStoreConfig.Builder secondBuilder = GoogleDataStoreConfig.Builder
+        GoogleDataStoreConfig config2 = GoogleDataStoreConfig.Builder
                 .instance()
-                .setStoredCredentialPersister((id, storedCredential) -> true)
-                .setStoredCredentialRetriever((id) -> null);
+                .setStoredCredentialPersister((id, storedCredential) -> false)
+                .setStoredCredentialRetriever((id) -> null)
+                .build();
 
-        Assertions.assertNotNull(config);
-        Assertions.assertThrows(GoogleDataStoreConfigException.class, () -> secondBuilder.build());
+        Assertions.assertEquals(config, config2);
     }
 
     @Test
     public void testGetInstanceWithoutBuilder() {
+        GoogleDataStoreConfig.shutdown();
         Assertions.assertThrows(GoogleDataStoreConfigException.class, () -> GoogleDataStoreConfig.getInstance());
     }
 }

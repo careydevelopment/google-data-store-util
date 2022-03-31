@@ -18,24 +18,17 @@ import java.io.Serializable;
 
 public class GoogleDataStoreFactoryTest {
 
-    @AfterEach
-    void cleanup() {
-        GoogleDataStoreConfig.shutdown();
-    }
-
-    @BeforeEach
-    void init() {
-        GoogleDataStoreConfigHarness.setUpConfig();
-    }
 
     @Test
     public void testGetInstance() {
+        GoogleDataStoreConfigHarness.setUpConfig();
         GoogleDataStoreFactory factory = GoogleDataStoreFactory.getInstance();
         Assertions.assertNotNull(factory);
     }
 
     @Test
     public void testGetCredentialDataStore() throws Exception {
+        GoogleDataStoreConfigHarness.setUpConfig();
         GoogleDataStoreFactory factory = GoogleDataStoreFactory.getInstance();
 
         DataStore<StoredCredential> ds = factory.getDataStore(GoogleDataStoreFactory.CREDENTIAL_STORE_ID);
@@ -45,6 +38,7 @@ public class GoogleDataStoreFactoryTest {
 
     @Test
     public void testGetDataStoreWithBogusId() throws Exception {
+        GoogleDataStoreConfigHarness.setUpConfig();
         GoogleDataStoreFactory factory = GoogleDataStoreFactory.getInstance();
         Assertions.assertThrows(GoogleDataStoreException.class, () -> factory.getDataStore("bogus"));
     }

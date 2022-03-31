@@ -10,6 +10,8 @@ public class GoogleDataStoreConfigHarness {
     private static final StoredCredentialRetriever RETRIEVER = StoredCredentialRetrieverHarness.getGoodRetriever();
 
     public static void setUpConfig() {
+        GoogleDataStoreConfig.shutdown();
+
         GoogleDataStoreConfig.Builder
                 .instance()
                 .setStoredCredentialPersister(PERSISTER)
